@@ -129,18 +129,38 @@ stock void GameMove_GetEyeAngles(Address addr, float result[3])
 			return;
 		}
 		mvOffset = StringToInt(buffer);
-		if (!gH_GameData.GetKeyValue("CMoveData::m_viewAngleOffset", buffer, sizeof(buffer)))
+		if (!gH_GameData.GetKeyValue("CMoveData::m_vecViewAngles", buffer, sizeof(buffer)))
 		{
-			ThrowError("Failed to get CMoveData::m_viewAngleOffset offset.");
+			ThrowError("Failed to get CMoveData::m_vecViewAngles offset.");
 			return;
 		}
-		originOffset = StringToInt(buffer);
+		viewAngleOffset = StringToInt(buffer);
 	}
 	
 	Address mvAddress = view_as<Address>(LoadFromAddress(view_as<Address>(view_as<int>(addr) + mvOffset), NumberType_Int32));
 	result[0] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + viewAngleOffset), NumberType_Int32));
 	result[1] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + viewAngleOffset + 4), NumberType_Int32));
 	result[2] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + viewAngleOffset + 8), NumberType_Int32));
+}
+
+stock void GameMove_GetByOffset(Address addr, int offset, float result[3])
+{
+	static int mvOffset;
+	if (!mvOffset)
+	{
+		char buffer[8];
+		if (!gH_GameData.GetKeyValue("CGameMovement::mv", buffer, sizeof(buffer)))
+		{
+			ThrowError("Failed to get CGameMovement::mv offset.");
+			return;
+		}
+		mvOffset = StringToInt(buffer);
+	}
+	
+	Address mvAddress = view_as<Address>(LoadFromAddress(view_as<Address>(view_as<int>(addr) + mvOffset), NumberType_Int32));
+	result[0] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + offset), NumberType_Int32));
+	result[1] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + offset + 4), NumberType_Int32));
+	result[2] = view_as<float>(LoadFromAddress(view_as<Address>(view_as<int>(mvAddress) + offset + 8), NumberType_Int32));
 }
 
 stock int GetEntityFromAddress(Address pEntity) {

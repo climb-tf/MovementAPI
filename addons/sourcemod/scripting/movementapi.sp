@@ -1,5 +1,4 @@
 #include <sourcemod>
-
 #include <sdkhooks>
 #include <dhooks>
 
@@ -62,7 +61,7 @@ public void OnPluginStart()
 	HookEvents();
 	CreateGlobalForwards();
 	HookEvent("player_spawn", OnPlayerSpawn, EventHookMode_Post);
-	HookEvent("player_jump", OnPlayerJump, EventHookMode_Post);
+	//HookEvent("player_jump", OnPlayerJump, EventHookMode_Post);
 	for (int client = 1; client <= MaxClients; client++)
 	{
 		if (IsClientInGame(client))
@@ -113,15 +112,21 @@ public void OnPlayerSpawn(Event event, const char[] name, bool dontBroadcast)
 	ResetClientData(client);
 }
 
-public void OnPlayerJump(Event event, const char[] name, bool dontBroadcast)
-{
-	int client = GetClientOfUserId(GetEventInt(event, "userid"));
-	bool jumpbug = !gB_OldOnGround[client];	
-	Call_OnPlayerJump(client, jumpbug);
-}
+// public void OnPlayerJump(Event event, const char[] name, bool dontBroadcast)
+// {
+// 	int client = GetClientOfUserId(GetEventInt(event, "userid"));
+// 	bool jumpbug = !gB_OldOnGround[client];	
+// 	Call_OnPlayerJump(client, jumpbug);
+// }
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon, int &subtype, int &cmdnum, int &tickcount, int &seed, int mouse[2])
 {
+	if(buttons & IN_JUMP)
+	{
+		bool jumpbug = !gB_OldOnGround[client];	
+		Call_OnPlayerJump(client, jumpbug);
+	}
+
 	CheckNoclip(client);
 	gI_Cmdnum[client] = cmdnum;
 	gI_TickCount[client] = tickcount;
