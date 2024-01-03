@@ -21,12 +21,12 @@
 				"this"		"address"
 				"return"	"void"
 			}
-			"CTFGameMovement::WalkMove"
+            "CTFGameMovement::WalkMove"
 			{
 				"signature" "CTFGameMovement::WalkMove"
-				"callconv"	"thiscall"
-				"this"		"address"
-				"return"	"void"
+				"callconv" 	"thiscall"
+				"this" 		"address"
+				"return" 	"void"
 			}
 			"CGameMovement::AirAccelerate"
 			{
@@ -118,7 +118,7 @@
 			"CTFGameMovement::PreventBunnyJumpin"
 			{
 				"library" 	"server"
-				"linux"		"\x55\x89\xE5\x53\x83\xEC\x14\x8B\x5D\x08\xC7\x44\x24\x04\x52\x00\x00\x00\x8B\x83\xD8\x07\x00\x00"
+				"linux"		"\x55\x89\xE5\x53\x83\xEC\x14\x8B\x5D\x08\xC7\x44\x24\x04\x52\x00\x00\x00\x8B\x83\xB8\x16\x00\x00"
 			}
 			"CGameMovement::CategorizePosition"
 			{
@@ -128,7 +128,7 @@
 			"CGameMovement::CheckJumpButton"
 			{
 				"library" "server"
-				"linux" "\x55\x89\xE5\x57\x56\x53\x83\xEC\x3C\x8B\x5D\x08\x8B\x43\x04\x80\xB8\x9C\x0B\x00\x00\x00"
+				"linux" "\x55\x89\xE5\x57\x56\x53\x83\xEC\x7C\x8B\x5D\x08\x8B\x43\x04\x80\xB8\x9C\x0B\x00\x00\x00"
 			}
 		}
 	}
